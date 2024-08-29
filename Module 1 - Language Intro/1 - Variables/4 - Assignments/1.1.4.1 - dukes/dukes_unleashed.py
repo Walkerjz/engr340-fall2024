@@ -10,6 +10,11 @@ Note: this problem does not require the "compounding interest" formula from the 
 
 ### Your code here ###
 
-in_state_gift = 0
+in_state_cost = 30792
+out_state_cost = 47882
+rate = 0.05
 
-out_state_gift = 0
+in_state_gift = in_state_cost/rate
+print("In-state gift for all JMU costs is: " + str(in_state_gift))
+out_state_gift = out_state_cost/rate
+print("Out-of-state gift for all JMU costs is: " +str(out_state_gift))

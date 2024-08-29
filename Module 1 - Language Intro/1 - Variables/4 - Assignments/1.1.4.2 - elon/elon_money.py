@@ -12,10 +12,16 @@ the 20-year bonds pay 4.32%, with each compounding annually.
 """
 
 ### all your code below ###
-
-
+# Compounding interest formula A=P(1+r/n)^(nt)
+# note: interest compounds annually so n = 1
+P=33000000000
+r_ten = 3.96
+yrs = 10
+ten_year_final = P*(1+r_ten/100)**yrs
+r_twenty = 4.32
+yrs = 20
+twenty_year_final = P*(1+r_twenty/100)**yrs
 # final answer for 10-year
-ten_year_final = None
-
+print("Ten year final: "+ str(ten_year_final))
 # final answer for 20-year
-twenty_year_final = None
+print("Twenty year final: " +str(twenty_year_final))
