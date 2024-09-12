@@ -1,3 +1,10 @@
+
+'''
+4.4.2 - Odd and Even Sorting
+Given a list nums, place all even numbers in a list called evens,
+ and vice versa for the odd values.
+ '''
+
 # bring in randomness cause we need it in our lives
 import random
 
@@ -29,14 +36,17 @@ odds_list = []
 
 """
 Step 1: Write a FOR loop to iterate through the list nums
-"""
-
-
-"""
 Step 2: Inside the FOR loop, examine the contents of nums. If the
 value is even, place it in the evens_list. If it is odd, place it in the 
 odds_list
 """
+for num in nums:
+    print()
+    if num%2 == 0:
+        evens_list.append(num)
+    else:
+        odds_list.append(num)
+
 
 print("The evens list contains: ", evens_list)
 print("The odds list contains: ", odds_list)

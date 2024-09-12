@@ -1,3 +1,13 @@
+
+'''4.4.3 - Vectors
+
+Given two lists of integers with equal length,
+ compute the dot product for the two "vectors".
+ Store the result in a value called "dot_product".
+
+Recall that for two vectors A and B, the dot product
+ is the summation of a0b0 + a1b1 + a2*b2 ....'''
+
 import random
 import numpy as np
 
@@ -26,8 +36,10 @@ Step 2: Iterate through the vector(s) and calculate the dot product
 
 # store your result here. Do not change the name
 dot_product = 0
-
-### Your code here
+i=0
+for a in vector_a:
+    dot_product+=a*vector_b[i]
+    i+=1
 
 """
 Step 3: Calculate the error of your dot_product compared with numpy's solution

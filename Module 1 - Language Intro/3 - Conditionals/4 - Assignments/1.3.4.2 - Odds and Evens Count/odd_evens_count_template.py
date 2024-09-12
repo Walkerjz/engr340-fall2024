@@ -1,3 +1,9 @@
+'''
+**3.4.2 - Odds and Even Counting**
+Given a list, count the number of even and odd numbers in the list. Your final answer should
+be stored in two variables: "num_odds" and "num_evens".
+'''
+
 # bring in randomness cause we need it in our lives
 import random
 
@@ -29,3 +35,11 @@ num_evens = 0
 num_odds = 0
 
 ### YOUR CODE BEGINS HERE ###
+for num in nums:
+    if num%2 == 1:
+        num_odds+=1
+    else:
+        num_evens+=1
+
+print("number of evens: " + str(num_evens))
+print("number of odds: " + str(num_odds))
