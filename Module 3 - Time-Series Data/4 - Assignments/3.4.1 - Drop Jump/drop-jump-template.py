@@ -15,7 +15,11 @@ def main(full_path_to_file):
     second_landing_index: Index within the signal of the first landing point
     RSI: Calculated reactive strength index
     """
+    '''
+    Notes from class:
+    baseline from first half second
 
+    '''
 
     # perform a basic check to see if the file exists. If not, exit the program
     if not path.exists(full_path_to_file):
@@ -33,10 +37,10 @@ def main(full_path_to_file):
     # Step 1: Establish a baseline by examining the force data the after for first ~20 points
 
     # set an amount of time to average and find the baseline
-    baseline_length = 0 ### your code here ###
+    baseline_length = 20 ### your code here ###
 
     # over the baseline, determine the average signal value
-    baseline = 0 ### your code here ###
+    baseline = np.mean(force_plate[0:baseline_length]) ### your code here ###
 
     # Step 2: After the baseline, find the first point that rises above that value
     # given some acceptable delta
@@ -61,7 +65,7 @@ def main(full_path_to_file):
         if value > baseline + delta:
             # mark this index as the landing point
 
-            ### your code here ###
+            first_landing_index = index
 
             # break out of the loop to end iterating
             break
@@ -81,11 +85,16 @@ def main(full_path_to_file):
     # then may accidentally find a point that is "too early" in the data
 
     # walk through the list but start a few moments after the at the landing index
-    # since we know the take off point will be afterwards.
+    # since we know the take-off point will be afterwards.
     for index in range(first_landing_index + 10, len(force_plate_list)):
+        value = force_plate_list[index]
+        # if signal is falling
+        if value < baseline + delta:
+            # mark this index as the take off point
+            take_off_index = index
 
-        ### your code here ###
-        delete_me = 0
+            # break out of the loop to end iterating
+            break
 
 
     # Step 4: The plate should remain near baseline while the user is in the air (there is no load).
@@ -100,25 +109,32 @@ def main(full_path_to_file):
 
     # walk through the list but start a few moment after the takeoff point
     for index in range(take_off_index + 10, len(force_plate_list)):
-
-        ### your code here ###
-        delete_me = 0
+        value = force_plate_list[index]
+        if value > baseline + delta:
+            second_landing_index = index
+            # break out of the loop to end iterating
+            break
 
     # Step 5: calculate the time of contact on plate and time of flight in air
 
     # calculate tc and convert to seconds using the sampling rate
-    time_of_contact = 0 ### your code here ###
+    time_of_contact = (take_off_index- first_landing_index)/sampling_rate
 
     # calculate tf and convert to seconds using the sampling rate
-    time_of_flight = 0 ### your code here ###
+    time_of_flight = (second_landing_index - take_off_index)/sampling_rate   # samples/(samples/s) ~ s
 
     # Step 6: Calculate the Reactive Strength Index
 
     # pull the local gravitational acceleration from scipy
     g = constants.g
+    tf=time_of_flight
+    tc=time_of_contact
+    #print(tf)
+    #print(tc)
+
 
     # RSI = (g*tf^2) / (8*tc)
-    RSI = 0 ### your code here ###
+    RSI = (g*tf**2) / (8*tc)
 
     ### Do not modify below this line ###
 
@@ -127,7 +143,7 @@ def main(full_path_to_file):
 
     return signal, first_landing_index, take_off_index, second_landing_index, RSI
 
-
+'helps you see what is wrong. Press play to see the graph'
 if __name__ == "__main__":
     # need to import this here so it won't eventually affect the autograder
     import matplotlib.pyplot as plt
