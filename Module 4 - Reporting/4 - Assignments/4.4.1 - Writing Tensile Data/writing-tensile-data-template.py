@@ -14,7 +14,7 @@ def generate_csv_file(filename, results):
     # Step 1: create a variable to hold the file name
 
     # uncomment this line
-    # output_file_name = ### your code here ###
+    output_file_name = 'Material Strength Results'
 
     # Step 2: use open() to open the file in write mode. Set the return of open()
     # to a variable name that will be your file handle
