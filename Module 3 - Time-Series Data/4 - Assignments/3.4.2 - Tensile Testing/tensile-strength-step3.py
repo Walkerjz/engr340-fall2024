@@ -114,7 +114,7 @@ def calculate_elastic_modulus(strain, stress):
     # use from 0 to that value to create a linear plot
 
     ### your code below ###
-    sec_stn_id = argmin(abs(stress - 0.4*ultimate_tensile_strength))
+    sec_stn_id = argmin(abs(stress - 0.4*max(stress)))
     #print(sec_stn_id)
     secant_strain = strain[sec_stn_id]
     #print(secant_strain)
