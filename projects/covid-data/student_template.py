@@ -58,7 +58,8 @@ def parse_nyt_data(file_path=''):
 
         # place entries as tuple into list
         data.append(entry)
-#Create two new lists of all the harrisonburg and rockingham data while we are at it.
+
+        #Create two new lists of all the harrisonburg and rockingham data while we are at it.
         if entry[1] == 'Harrisonburg city':
             Hburg_data.append(entry)
         if (entry[1] == 'Rockingham') & (entry[2] == 'Virginia'):
@@ -74,10 +75,11 @@ def first_question(data, Rock_data, Hburg_data):
     # When was the first positive COVID case in Harrisonburg?
     :return:
     """
-    #Note that the parsing code was modified to return the rockingham and harisonburg data
+    #Note that the parsing code was modified to return the Rockingham and Harrisonburg data
+    #Print the first entry in the list
+    # this works because cities in the data are only reported once they have at least one case
     print( "The first positive in Rockingham County was: "+ str(Rock_data[0][0]))
     print("The first positive in Harrisonburg City was: " + str(Hburg_data[0][0]))
-
     return
 
 def second_question(data, Rock_data, Hburg_data):
@@ -88,45 +90,68 @@ def second_question(data, Rock_data, Hburg_data):
     :return:
     """
     #define lists to hold the daily changes in covid cases
-    Rock_data_new = [0]
-    Hburg_data_new = [0]
+    #starting the list with the first entry in the data because it is assumed we went from 0 to however many cases
+    Rock_data_new = [Rock_data[0][3]]
+    Hburg_data_new = [Hburg_data[0][3]]
+
+    #iterate through the Rockingham data and calculate the new daily cases (we are basically taking the derivative)
     i = 0
     while i<(len(Rock_data)-1):
         Rock_data_new.append(int(Rock_data[i+1][3]) - int(Rock_data[i][3]))
         i=i+1
+
+    # iterate through the Harrisonburg data and calculate the new daily cases (we are basically taking the derivative)
     j = 0
     while j<(len(Hburg_data)-1):
         Hburg_data_new.append(int(Hburg_data[j+1][3]) - int(Hburg_data[j][3]))
         j=j+1
 
+    #find the worst days for harrisonburg and Rockingham using argmax
     Hburg_worst_day = Hburg_data[argmax(Hburg_data_new)][0]
     Rock_worst_day = Rock_data[argmax(Rock_data_new)][0]
-    look = Hburg_data_new
+
+    #Print out the results
     print("The greatest number of new daily cases recorded in Rockingham County was on: " + str(Rock_worst_day))
     print("The greatest number of new daily cases recorded in Harrisonburg was on: " + str(Hburg_worst_day))
-    #print(Hburg_data_new)
+
+    #returning these lists to use in part 3
     return Rock_data_new, Hburg_data_new
 
 def third_question(data, Rock_data_new, Hburg_data_new):
     # Write code to address the following question:Use print() to display your responses.
     # What was the worst 7-day period in either the city and county for new COVID cases?
     # This is the 7-day period where the number of new cases was maximal.
+
+    #define the weekly new cases list
     Rock_weekly_new = []
+
+    #itterate through the list adding up each consecutive 7-day period of days to make a list of weekly new case totals
     i=0
     while i<(len(Rock_data_new)-6):
         #add the weekly new cases
         Rock_weekly_new.append(int(Rock_data_new[i]) + int(Rock_data_new[i+1]) + int(Rock_data_new[i+2]) + int(Rock_data_new[i+3]) + int(Rock_data_new[i+4]) + int(Rock_data_new[i+5]) + int(Rock_data_new[i+6]))
         i=i+1
+
+    #find the worst week finding the place of the max weekly data and maping that back to the date
     Rock_worst_week = Rock_data[argmax(Rock_weekly_new)][0]
+
+    #Report results
     print("The week with the most new covid cases in Rockingham county started on: " + str(Rock_worst_week))
 
+    # define the weekly new cases list
     Hburg_weekly_new = []
+
+    # itterate through the list adding up each consecutive 7-day period of days to make a list of weekly new case totals
     j=0
     while j<(len(Hburg_data_new)-6):
         #add the weekly new cases
         Hburg_weekly_new.append(int(Hburg_data_new[j]) + int(Hburg_data_new[j+1]) + int(Hburg_data_new[j+2]) + int(Hburg_data_new[j+3]) + int(Hburg_data_new[j+4]) + int(Hburg_data_new[j+5]) + int(Hburg_data_new[j+6]))
         j=j+1
+
+    # find the worst week finding the place of the max weekly data and maping that back to the date
     Hburg_worst_week = Hburg_data[argmax(Hburg_weekly_new)][0]
+
+    #Report results
     print("The week with the most new covid cases in Harrisonburg City started on: " + str(Hburg_worst_week))
     return
 
