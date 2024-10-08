@@ -77,7 +77,7 @@ if __name__ == "__main__":
     left_sided_tests = one_sided_tests(_files=one_sided_test_files, _mean=target_mu, _alpha=0.5, _less_than=True)
     print('Conducting left sided tests. All samples less that mean should be returned. Samples: ', left_sided_tests)
 
-    # perform all left-sided tests (rejected should be greater than target as means not equal)
+    # perform all right-sided tests (rejected should be greater than target as means not equal)
     right_sided_tests = one_sided_tests(_files=one_sided_test_files, _mean=target_mu, _alpha=0.5, _less_than=False)
     print('Conducting right sided tests. All samples greater that mean should be returned. Samples: ', right_sided_tests)
 
