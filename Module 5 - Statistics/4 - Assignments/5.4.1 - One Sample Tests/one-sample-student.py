@@ -1,4 +1,7 @@
+from operator import truediv
+
 import numpy as np
+#from scipy.special import expected
 from scipy.stats import ttest_1samp, norm, ttest_ind
 
 
@@ -30,11 +33,22 @@ def one_sample_tests(_files: list, _mean: float, _alpha: float, _less_than: bool
     :param _less_than: If true, then a left-sided (<) t-test is performed. Otherwise, a right-sided test (>)
     :return: A list of files where the null hypothesis is rejected
     """
-
     # list of files that are out of spec
     reject_null_hypothesis = []
 
-    # YOUR CODE HERE #
+    for name in _files:
+        file = np.loadtxt(name, delimiter=',')
+        file = np.asarray(file)
+        Test = 'greater'
+        if _less_than:
+            Test = 'less'
+        (stat, p) = ttest_1samp(file, popmean=_mean, alternative=Test)
+        if p< _alpha:
+            reject_null_hypothesis.append(name)
+
+
+
+
 
     # return samples that were rejected
     return reject_null_hypothesis
