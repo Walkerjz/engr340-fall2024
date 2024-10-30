@@ -1,3 +1,5 @@
+from signal import signal
+
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -18,8 +20,13 @@ signal_filepath = path_to_folder + database_name + ".csv"
 Step #1: load data in matrix from CSV file; skip first two rows. Call the data signal.
 """
 
-signal = 0
+signal = []
 ## YOUR CODE HERE ##
+data = np.loadtxt(signal_filepath, delimiter= ',', skiprows=2)
+time = data[:,0]
+volt1 = data[:,1]
+signal = [time, volt1]
+pass
 
 """
 Step 2: (OPTIONAL) pass data through LOW PASS FILTER (fs=250Hz, fc=15, N=6). These may not be correctly in radians
