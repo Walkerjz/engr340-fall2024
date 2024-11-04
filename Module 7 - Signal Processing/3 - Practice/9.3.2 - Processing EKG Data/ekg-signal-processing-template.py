@@ -25,8 +25,12 @@ signal = []
 data = np.loadtxt(signal_filepath, delimiter= ',', skiprows=2)
 time = data[:,0]
 volt1 = data[:,1]
-signal = [time, volt1]
-pass
+signal = volt1
+plt.plot(volt1)
+plt.xlabel("Time (s)")
+plt.ylabel("Volt1")
+plt.title("Plot of a ekg data raw")
+plt.show()
 
 """
 Step 2: (OPTIONAL) pass data through LOW PASS FILTER (fs=250Hz, fc=15, N=6). These may not be correctly in radians
@@ -39,19 +43,30 @@ Step 3: Pass data through weighted differentiator
 """
 
 ## YOUR CODE HERE ##
-
+signal = np.diff(signal)
+plt.plot(signal)
+plt.xlabel("Time (s)")
+plt.ylabel("Volt1 diff")
+plt.title("Plot of a ekg data derivative")
+plt.show()
 
 """
 Step 4: Square the results of the previous step
 """
- ## YOUR CODE HERE ##
-
+signal = np.square(signal)
+plt.plot(signal)
+plt.xlabel("Time (s)")
+plt.ylabel("Volt1 sqr")
+plt.title("Plot of a ekg data squared")
+plt.show()
 """
 Step 5: Pass a moving filter over your data
 """
 
+signal = np.convolve(signal, np.ones(10)/10)
+
 ## YOUR CODE HERE
 # make a plot of the results. Can change the plot() parameter below to show different intermediate signals
-plt.title('Process Signal for ' + database_name)
+plt.title('Process Signal for ' + database_name + 'moving average filter applied')
 plt.plot(signal)
 plt.show()

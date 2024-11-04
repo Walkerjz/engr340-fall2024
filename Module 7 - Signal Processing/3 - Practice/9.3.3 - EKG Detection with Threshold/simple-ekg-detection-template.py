@@ -24,7 +24,8 @@ Step 2: Determine how much data to use...
 # If you wish to only run on ~10s of data uncomment the line below
 # if you wish to run on all data, comment out this line
 signal = signal[0:3300]
-
+plt.plot(signal)
+plt.show()
 
 """
 Step 3: Attempt simple thresholding with timeout to detect the signal
@@ -32,13 +33,13 @@ Adjust the values for threshold and timeout to change the detection method/appro
 """
 
 # set a detection threshold (YOUR VALUE BELOW)
-detection_threshold = -1
+detection_threshold = 1.5
 
 # set a heart beat time out (YOUR VALUE BELOW)
-detection_time_out = -1
+detection_time_out = 200
 
 # track the last time we found a beat
-last_detected_index = -1
+last_detected_index = 0
 
 # keep not of where we are in the data
 current_index = 0
