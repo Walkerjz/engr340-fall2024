@@ -1,5 +1,7 @@
 import numpy as np
 from ekg_testbench import EKGTestBench
+import scipy as sci
+
 
 def detect_heartbeats(filepath):
     """
@@ -15,36 +17,52 @@ def detect_heartbeats(filepath):
     path = filepath
 
     # load data in matrix from CSV file; skip first two rows
-    ## your code here
+    data = np.loadtxt(filepath, delimiter=",", skiprows=2)
 
     # save each vector as own variable
-    ## your code here
-
+    time = data[:, 0]
+    volt1 = data[:, 1]
+    volt2 = data[:, 2]
     # identify one column to process. Call that column signal
 
-    signal = -1 ## your code here
-
+    signal = volt1 ## your code here
+    #plt.plot(signal[0:3300])
+    #plt.show()
+    #plt.plot(signal)
+    #plt.show()
     # pass data through LOW PASS FILTER (OPTIONAL)
-    ## your code here
+    #flt_ord = 5
+   # smp_rte = 3300
+   # max_fqy = 300
+   # lw_flt = sci.signal.butter(flt_ord, max_fqy, btype = 'lowpass',fs=smp_rte, output = 'sos')
+   # signal = sci.signal.sosfiltfilt(lw_flt,signal)
 
+    #plt.plot(signal[0:3300])
+   # plt.show()
     # pass data through HIGH PASS FILTER (OPTIONAL) to create BAND PASS result
     ## your code here
+    low_fqy = 20
+   # hi_flt = sci.signal.butter(flt_ord, max_fqy, btype = 'highpass',fs=smp_rte, output = 'sos')
+    #signal = sci.signal.sosfiltfilt(hi_flt,signal)
 
+   ## plt.plot(signal[0:3300])
+    #plt.show()
     # pass data through differentiator
-    ## your code here
+    signal = np.diff(signal)
 
     # pass data through square function
-    ## your code here
+    signal = np.square(signal)
 
     # pass through moving average window
-    ## your code here
-
+    signal = np.convolve(signal, np.ones(10)/10)
+    #plt.plot(signal)
+    #plt.show()
     # use find_peaks to identify peaks within averaged/filtered data
     # save the peaks result and return as part of testbench result
 
     ## your code here peaks,_ = find_peaks(....)
 
-    beats = None
+    beats, hi = sci.signal.find_peaks(signal, height=0.005, distance=200)
 
     # do not modify this line
     return signal, beats
