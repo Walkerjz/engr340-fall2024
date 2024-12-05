@@ -62,7 +62,7 @@ def detect_heartbeats(filepath):
 
     ## your code here peaks,_ = find_peaks(....)
 
-    beats, hi = sci.signal.find_peaks(signal, height=0.005, distance=200)
+    beats, hi = sci.signal.find_peaks(signal, height=0.01, distance=130)
 
     # do not modify this line
     return signal, beats
