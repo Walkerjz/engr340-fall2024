@@ -75,16 +75,16 @@ if __name__ == "__main__":
     import matplotlib.pyplot as plt
 
     # database name
-    database_name = 'mitdb_201'
+    database_name = 'qtdb_sel104'
 
     # set to true if you wish to generate a debug file
-    file_debug = False
+    file_debug = True
 
     # set to true if you wish to print overall stats to the screen
     print_debug = True
 
     # set to true if you wish to show a plot of each detection process
-    show_plot = False
+    show_plot = True
 
     ### DO NOT MODIFY BELOW THIS LINE!!! ###
 
